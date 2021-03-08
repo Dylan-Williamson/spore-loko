@@ -1,4 +1,5 @@
 import './App.css';
+import Header from './components/Header'
 
 function App() {
   return (
@@ -6,7 +7,7 @@ function App() {
       <h1>
         Spore Loko
       </h1>
-      {/*header*/}
+      <Header />
       {/*home*/}
     </div>
   );
