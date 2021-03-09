@@ -1,8 +1,10 @@
 import React from 'react';
 import '../Checkout.css';
-import Subtotal from '../components/Subtotal'
+import Subtotal from '../components/Subtotal';
+import CheckoutProduct from '../components/CheckoutProduct'
+import { connect } from 'react-redux';
 
-function Checkout() {
+const Checkout = (props) => {    
     return (
         <div className="checkout">
             <div className="checkout__left">
@@ -16,6 +18,9 @@ function Checkout() {
                     <h2
                         className="checkout__title">Your Shopping Cart
                     </h2>
+                    <div>
+                        {props.cart.map(item => <CheckoutProduct {...item} />)}
+                    </div>
                 </div>
             </div>
 
@@ -28,4 +33,6 @@ function Checkout() {
     )
 }
 
-export default Checkout
+// export default Checkout
+const mapStateToProps = (state) => ({ cart: state.cart.cart })
+export default connect(mapStateToProps)(Checkout)

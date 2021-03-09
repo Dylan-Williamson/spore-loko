@@ -1,6 +1,6 @@
-import userReducer from './userReducer'
-import { combineReducers } from 'redux'
+import cartReducer from './cartReducer';
+import { combineReducers } from 'redux';
 
 export const reducer = combineReducers({
-    user: userReducer
+    cart: cartReducer
 })

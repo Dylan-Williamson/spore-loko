@@ -1,27 +1,31 @@
 import React from 'react';
 import '../Product.css';
+import { connect } from 'react-redux';
+import { addToCart } from '../redux/actionCreators';
 
-function Product({ title, image, price, rating }) {
+const Product = (props) => {
     return (
         <div className="product">
             <div className="product__info">
-                <p>{title}</p>
+                <p>{props.title}</p>
                 <p className="product__price">
                     <small>$</small>
-                    <strong>{price}</strong>
+                    <strong>{props.price}</strong>
                 </p>
                 <div className="product__rating">
-                    {Array(rating)
+                    {Array(props.rating)
                         .fill()
                         .map((_, i) => (
                             <p>⭐️</p>
                         ))}
                 </div>
             </div>
-            <img src={image} alt={title}/>
-            <button>Add To Cart</button>
+            <img src={props.image} alt={props.title}/>
+            <button onClick={()=> props.addToCart(props)}>Add To Cart</button>
         </div>
     )
 }
 
-export default Product
+const mapStateToProps = (state) => ({ cart: state.cart.cart })
+
+export default connect(mapStateToProps, { addToCart })(Product)

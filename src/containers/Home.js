@@ -52,6 +52,7 @@ function Home() {
                 </div>
                 <div className="home__row">
                     <Product
+                        key={(1 + Math.random() * (100-1))}
                         id="6"
                         title='The Lean Startup'
                         price={29.99}
