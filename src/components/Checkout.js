@@ -15,6 +15,9 @@ const Checkout = (props) => {
                 />
 
                 <div>
+                    <h3>
+                        Hello {props.user?.email}
+                    </h3>
                     <h2
                         className="checkout__title">Your Shopping Cart
                     </h2>
@@ -33,6 +36,8 @@ const Checkout = (props) => {
     )
 }
 
-// export default Checkout
-const mapStateToProps = (state) => ({ cart: state.cart.cart })
+const mapStateToProps = (state) => ({
+    cart: state.cart.cart,
+    user: state.user.user
+})
 export default connect(mapStateToProps)(Checkout)
