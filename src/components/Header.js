@@ -1,13 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../Header.css';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
+import { auth } from '../firebase'
 
-class Header extends Component {
+const Header = (props) => {
+    
+    const handleAuth = () => {
+        if (props.user) {
+            auth.signOut();
+        }
+    }
 
-    render() {
         return (
             <div className="header">
                 <Link to="/">
@@ -23,14 +29,16 @@ class Header extends Component {
                     <SearchIcon className="header__searchIcon" />
                 </div>
                 <div className="header__nav">
-                    <div className="header__option">
-                        <span className="header__optionLineOne">
-                            Hello Guest
-                        </span>
-                        <span className="header__optionLineTwo">
-                            Sign In
-                        </span>
-                    </div>
+                    <Link to={!props.user && '/login'}>
+                        <div className="header__option" onClick={handleAuth}>
+                            <span className="header__optionLineOne">
+                                Hello {props.user ? props.user.email : 'Guest'}
+                            </span>
+                            <span className="header__optionLineTwo">
+                                {props.user ? 'Sign Out' : 'Sign In'}
+                            </span>
+                        </div> 
+                    </Link>
                     <div className="header__option">
                         <span className="header__optionLineOne">
                             Returns
@@ -51,16 +59,18 @@ class Header extends Component {
                         <div className="header__optionBasket">
                             <ShoppingBasketIcon />
                             <span className="header__optionLineTwo header__basketCount">
-                                {this.props.cart?.length}
+                                {props.cart?.length}
                             </span>
                         </div>
                     </Link>
                 </div>
             </div>
         );
-    };
 };
 
-const mapStateToProps = (state) => ({ cart: state.cart.cart });
+const mapStateToProps = (state) => ({
+    cart: state.cart.cart,
+    user: state.user.user
+});
 
 export default connect(mapStateToProps)(Header);
