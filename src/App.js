@@ -9,7 +9,12 @@ import { Switch, Route } from 'react-router-dom';
 import { auth } from './firebase';
 import { setUser } from './redux/actionCreators';
 import { connect } from 'react-redux';
-// import { render } from '@testing-library/react';
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
+const promise = loadStripe(
+  "pk_test_51ITXeLEUG2WFNVacjKfBIJlEZJNc3q2TxfIHAVJh1ChshsUqxTMib8bfmgcULisjDNfBEY8xfNQguQMZDhnd4c3j008AvwPCd8"
+)
 
 const App = (props) => {
 
@@ -35,7 +40,9 @@ const App = (props) => {
               </Route>
               <Route exact path="/payment">
                 <Header />
-                <Payment />
+                <Elements stripe={promise}>
+                  <Payment />
+                </Elements>
               </Route>
               <Route path="/">
                 <Header />

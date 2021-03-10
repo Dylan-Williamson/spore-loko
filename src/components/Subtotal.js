@@ -2,11 +2,11 @@ import React from 'react';
 import '../Subtotal.css';
 import CurrencyFormat from "react-currency-format";
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 
 const Subtotal = (props) => {
 
-
+        const history = useHistory();
 
         const calculateSubtotal = () => {
             let cart = props.cart;
@@ -14,8 +14,6 @@ const Subtotal = (props) => {
             cart.map(item => subtotal+=item.price);
             return subtotal;
         };
-
-        const history = useHistory();
         
         return (
             <div className="subtotal">
