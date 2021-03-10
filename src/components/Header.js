@@ -6,13 +6,15 @@ import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { auth } from '../firebase'
 
-const Header = (props) => {
+const Header = ({ user, cart }) => {
     
-    const handleAuth = () => {
-        if (props.user) {
+    const handleAuth = (user) => {
+        if (user) {
             auth.signOut();
         }
     }
+
+    // const 
 
         return (
             <div className="header">
@@ -29,13 +31,14 @@ const Header = (props) => {
                     <SearchIcon className="header__searchIcon" />
                 </div>
                 <div className="header__nav">
-                    <Link to={!props.user && '/login'}>
+                    {/* <Link to={!props.user && '/login'}> */}
+                    <Link to="/login">
                         <div className="header__option" onClick={handleAuth}>
                             <span className="header__optionLineOne">
-                                Hello {props.user ? props.user.email : 'Guest'}
+                                Hello {user ? user.email : 'Guest'}
                             </span>
                             <span className="header__optionLineTwo">
-                                {props.user ? 'Sign Out' : 'Sign In'}
+                                {user ? 'Sign Out' : 'Sign In'}
                             </span>
                         </div> 
                     </Link>
@@ -59,7 +62,7 @@ const Header = (props) => {
                         <div className="header__optionBasket">
                             <ShoppingBasketIcon />
                             <span className="header__optionLineTwo header__basketCount">
-                                {props.cart?.length}
+                                {cart?.length}
                             </span>
                         </div>
                     </Link>

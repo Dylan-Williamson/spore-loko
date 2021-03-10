@@ -1,20 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../Subtotal.css';
 import CurrencyFormat from "react-currency-format";
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom'
 
-class Subtotal extends Component {
+const Subtotal = (props) => {
 
-    render() {
+
 
         const calculateSubtotal = () => {
-            let cart = this.props.cart;
-
-
+            let cart = props.cart;
             let subtotal = 0;
             cart.map(item => subtotal+=item.price);
             return subtotal;
         };
+
+        const history = useHistory();
         
         return (
             <div className="subtotal">
@@ -22,7 +23,7 @@ class Subtotal extends Component {
                     renderText={(value) => (
                         <>
                             <p>
-                                Subtotal ({this.props.cart.length} items):
+                                Subtotal ({props.cart.length} items):
                                 <strong>{value}</strong>
                             </p>
                             <small className="subtotal__gift">
@@ -38,10 +39,9 @@ class Subtotal extends Component {
                     prefix={"$"}
                 />
 
-                <button>Proceed to Checkout</button>
+                <button onClick={e => history.push('/payment')}>Proceed to Checkout</button>
             </div>
         )
-    }
 }
 
 const mapStateToProps = (state) => ({ cart: state.cart.cart });
