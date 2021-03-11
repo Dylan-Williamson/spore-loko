@@ -6,7 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import CurrencyFormat from "react-currency-format";
 import axios from '../axios';
-
+import { emptyCart } from '../redux/actionCreators'
 
 
 const Payment = (props) => {
@@ -49,6 +49,7 @@ const Payment = (props) => {
             setSucceeded(true);
             setError(null);
             setProcessing(false);
+            props.emptyCart();
             history.replace('/orders');
         })
     };
@@ -141,4 +142,4 @@ const mapStateToProps = (state) => ({
     cart: state.cart.cart,
     user: state.user.user
 })
-export default connect(mapStateToProps)(Payment)
+export default connect(mapStateToProps, {emptyCart})(Payment)

@@ -5,6 +5,7 @@ import Payment from './components/Payment';
 import Home from './containers/Home';
 import Checkout from './components/Checkout';
 import Login from './components/Login';
+import Orders from './components/Orders'
 import { Switch, Route } from 'react-router-dom';
 import { auth } from './firebase';
 import { setUser } from './redux/actionCreators';
@@ -33,6 +34,10 @@ const App = (props) => {
             <Switch>
               <Route exact path="/login">
                 <Login />
+              </Route>
+              <Route exact path='/orders'>
+                <Header />
+                <Orders />
               </Route>
               <Route exact path="/checkout">
                 <Header />

@@ -9,6 +9,10 @@ export const addToCart = (props) => ({
     }
 });
 
+export const emptyCart = () => ({
+    type: "EMPTY_CART",
+    // cart: props.cart
+})
 
 export const removeFromCart = (props) => ({
     type: "REMOVE_FROM_CART",
