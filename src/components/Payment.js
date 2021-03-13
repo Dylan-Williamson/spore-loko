@@ -6,7 +6,8 @@ import { Link, useHistory } from 'react-router-dom';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import CurrencyFormat from "react-currency-format";
 import axios from '../axios';
-import { emptyCart } from '../redux/actionCreators'
+import { emptyCart } from '../redux/actionCreators';
+import { db } from '../firebase';
 
 
 const Payment = (props) => {
@@ -46,6 +47,18 @@ const Payment = (props) => {
             }
         }).then(({ paymentIntent }) => {
             
+            db
+                .collection('users')
+                .doc(user?.uid)
+                .collection('orders')
+                .doc(paymentIntent.id)
+                .set({
+                    cart: cart,
+                    amount: paymentIntent.amount,
+                    created: paymentIntent.created,
+
+                })
+
             setSucceeded(true);
             setError(null);
             setProcessing(false);

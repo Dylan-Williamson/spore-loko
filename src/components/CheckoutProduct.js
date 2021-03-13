@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { removeFromCart } from '../redux/actionCreators';
 
 const CheckoutProduct = (props) => {
-    const {title, image, price, rating} = props;
+    const {title, image, price, rating, hideButton} = props;
     return (
         <div className="checkoutProduct">
             <img className="checkoutProduct__image" src={image} alt="" />
@@ -28,9 +28,11 @@ const CheckoutProduct = (props) => {
                             <p>⭐️</p>
                         ))}
                 </div>
+                {!hideButton && (
                 <button onClick={()=> props.removeFromCart(props)}>
                     Remove From Cart
                 </button>
+                )}
             </div>
         </div>
     )   
